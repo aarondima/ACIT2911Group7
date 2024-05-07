@@ -1,15 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" >
-    <link href="{{ url_for('static',filename='styles.css') }}">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello</h1>
-</body>
-{% block content %}
-{% endblock %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" >
+        <link href="{{ url_for('static',filename='styles.css') }}">
+    </head>
+    <body>
+        <nav>
+            <a href="">Home</a>
+            <a href="">Courses</a>
+            <a href="">Instructors</a>
+            <a href="">Products</a>
+            <a href="">profile</a>
+        </nav>
+        {% block content %}
+        {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </body>
 </html>
