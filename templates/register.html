@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -265,3 +266,23 @@
   
 </body>
 </html>
+=======
+
+
+{% extends "layout.html" %}
+ 
+{% block y %}
+ 
+   <h1> REGISTER </h1>
+ 
+   <form action="/register" method="POST">
+      <input placeholder="Username" autocomplete="off" type="text" name="username">
+      <input placeholder="First Name" autocomplete="off" type="text" name="firstName">
+      <input placeholder="Last Name" autocomplete="off" type="text" name="lastName">
+      <input placeholder="Email" autocomplete="off" type="email" name="email">
+      <input placeholder="Password" autocomplete="off" type="password" name="password">
+      <input type="submit" name="Register">
+   </form>
+ 
+{% endblock %}
+>>>>>>> adafe8204624f824e262bf8239a3c1ac1ddf309a
