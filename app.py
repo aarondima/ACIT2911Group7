@@ -2,40 +2,40 @@
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user
- 
+from models import Student
+from db import db
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
 app.config["SECRET_KEY"] = "abc"
-db = SQLAlchemy()
+
  
 login_manager = LoginManager()
 login_manager.init_app(app)
  
- 
-class Users(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(250), unique=True, nullable=False)
-    password = db.Column(db.String(250), nullable=False)
  
  
 db.init_app(app)
  
  
 with app.app_context():
+    db.drop_all()
     db.create_all()
  
  
 @login_manager.user_loader
 def loader_user(user_id):
-    return Users.query.get(user_id)
+    return Student.query.get(user_id)
  
  
 @app.route('/register', methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        user = Users(username=request.form.get("username"),
+        student = Student(username=request.form.get("username"),
+                       firstName=request.form.get("firstName"),
+                       lastName=request.form.get("lastName"),
+                       email=request.form.get("email"),
                      password=request.form.get("password"))
-        db.session.add(user)
+        db.session.add(student)
         db.session.commit()
         return redirect(url_for("login"))
     return render_template("register.html")
@@ -44,10 +44,11 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        user = Users.query.filter_by(
+        student = Student.query.filter_by(
             username=request.form.get("username")).first()
-        if user.password == request.form.get("password"):
-            login_user(user)
+        
+        if student.password == request.form.get("password"):
+            login_user(student)
             return redirect(url_for("home"))
     return render_template("login.html")
  
@@ -60,8 +61,6 @@ def logout():
  
 @app.route("/")
 def home():
-    user = Users.query.filter_by(
-            username=request.form.get("username")).first()
     return render_template("home.html")
  
  
