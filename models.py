@@ -1,9 +1,3 @@
-<<<<<<<<< Temporary merge branch 1
-from sqlalchemy import Boolean, Float, Numeric, ForeignKey, Integer, String, func, DateTime
-from sqlalchemy.orm import mapped_column, relationship
-from datetime import datetime
-from db import db
-=========
 from sqlalchemy import Boolean, Float, Numeric, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import mapped_column, relationship
 from flask_login import UserMixin
@@ -28,4 +22,3 @@ class Student(UserMixin, db.Model):
             "email": self.email,
             "password": self.password
         }
->>>>>>>>> Temporary merge branch 2
