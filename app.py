@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<<<<<<<<< Temporary merge branch 1
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from pathlib import Path
 from sqlalchemy import delete
@@ -6,11 +6,8 @@ from datetime import datetime
 from db import db
 from routes import html_bp
 import csv
-from flask_login import LoginManager
-from models import Student 
-
-=======
->>>>>>> adafe8204624f824e262bf8239a3c1ac1ddf309a
+=========
+>>>>>>>>> Temporary merge branch 2
 
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
@@ -18,29 +15,18 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user
 from models import Student
 from db import db
 app = Flask(__name__)
-<<<<<<< HEAD
+<<<<<<<<< Temporary merge branch 1
 # This will make Flask use a 'sqlite' database with the filename provided
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///i_copy_pasted_this.db"
-app.config['SECRET_KEY'] = 'u5evZUBcwG6jXyH2LgVbdRMm9CFShPrENtD4nW3sAkTJQxqKYa'
 # This will make Flask store the database file in the path provided
 app.instance_path = Path(".").resolve()
 # Adjust to your needs / liking. Most likely, you want to use "." for your instance
 # path. You may also use "data".
 db.init_app(app)
-login_manager = LoginManager()
-login_manager.login_view = 'html.register_page'
-login_manager.init_app(app)
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    # since the user_id is just the primary key of our user table, use it in the query forthe user
-    return Student.query.get(int(user_id))
-
 
 app.register_blueprint(html_bp, url_prefix="/")
 
-=======
+=========
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
 app.config["SECRET_KEY"] = "abc"
 
@@ -51,11 +37,6 @@ login_manager.init_app(app)
  
  
 db.init_app(app)
- 
- 
-with app.app_context():
-    db.drop_all()
-    db.create_all()
  
  
 @login_manager.user_loader
@@ -82,7 +63,7 @@ def login():
     if request.method == "POST":
         student = Student.query.filter_by(
             username=request.form.get("username")).first()
-        
+        print(student)
         if student.password == request.form.get("password"):
             login_user(student)
             return redirect(url_for("home"))
@@ -100,6 +81,6 @@ def home():
     return render_template("home.html")
  
  
->>>>>>> adafe8204624f824e262bf8239a3c1ac1ddf309a
+>>>>>>>>> Temporary merge branch 2
 if __name__ == "__main__":
     app.run(debug=True, port=8888)
