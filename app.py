@@ -17,11 +17,6 @@ login_manager.init_app(app)
 db.init_app(app)
  
  
-with app.app_context():
-    db.drop_all()
-    db.create_all()
- 
- 
 @login_manager.user_loader
 def loader_user(user_id):
     return Student.query.get(user_id)
@@ -46,7 +41,7 @@ def login():
     if request.method == "POST":
         student = Student.query.filter_by(
             username=request.form.get("username")).first()
-        
+        print(student)
         if student.password == request.form.get("password"):
             login_user(student)
             return redirect(url_for("home"))
