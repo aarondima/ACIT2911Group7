@@ -1,36 +1,69 @@
 
-from flask import Flask, render_template, redirect, request, session
-from flask_session import Session
-
+from flask import Flask, render_template, request, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, logout_user
+ 
 app = Flask(__name__)
-
-
-app = Flask(__name__)
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
-
-@app.route("/login", methods=["POST", "GET"])
-def login():
-  # if form is submited
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+app.config["SECRET_KEY"] = "abc"
+db = SQLAlchemy()
+ 
+login_manager = LoginManager()
+login_manager.init_app(app)
+ 
+ 
+class Users(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(250), unique=True, nullable=False)
+    password = db.Column(db.String(250), nullable=False)
+ 
+ 
+db.init_app(app)
+ 
+ 
+with app.app_context():
+    db.create_all()
+ 
+ 
+@login_manager.user_loader
+def loader_user(user_id):
+    return Users.query.get(user_id)
+ 
+ 
+@app.route('/register', methods=["GET", "POST"])
+def register():
     if request.method == "POST":
-        # record the user name
-        session["name"] = request.form.get("name")
-        session["id"] = 2
-        # redirect to the main page
-        return redirect("/")
+        user = Users(username=request.form.get("username"),
+                     password=request.form.get("password"))
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("login"))
+    return render_template("register.html")
+ 
+ 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        user = Users.query.filter_by(
+            username=request.form.get("username")).first()
+        if user.password == request.form.get("password"):
+            login_user(user)
+            return redirect(url_for("home"))
     return render_template("login.html")
-
-@app.route("/")
-def index():
-  # check if the users exist or not
-    if not session.get("name"):
-        # if not there in the session then redirect to the login page
-        return redirect("/login")
-    return render_template('index.html')
+ 
+ 
 @app.route("/logout")
 def logout():
-    session["name"] = None
-    return redirect("/")
+    logout_user()
+    return redirect(url_for("home"))
+ 
+ 
+@app.route("/")
+def home():
+    user = Users.query.filter_by(
+            username=request.form.get("username")).first()
+    return render_template("home.html")
+ 
+ 
 if __name__ == "__main__":
     app.run(debug=True, port=8888)
