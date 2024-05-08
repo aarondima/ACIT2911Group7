@@ -1,4 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h1>Customers</h1>
+<div class="container">
+    <table class="table table-striped">
+        <thread>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Balance</th>
+        </thread>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <th>{{student.id}}</th>
+                <td><a href="{{ url_for('html.student', customer_id=customer['id']) }}">{{ student['name'] }}</a></td>
+                <td>{{student.balance}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

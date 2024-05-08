@@ -10,3 +10,7 @@ html_bp = Blueprint("html", __name__)
 @html_bp.route("/")
 def home():
     return render_template("base.html")
+
+@html_bp.route("/students")
+def home():
+    return render_template("student_classlist.html")
