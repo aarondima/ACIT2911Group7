@@ -1,15 +1,24 @@
-from sqlalchemy import Boolean, Float, Numeric, ForeignKey, Integer, String, func, DateTime
+from sqlalchemy import Boolean, Float, Numeric, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import mapped_column, relationship
-from datetime import datetime
+from flask_login import UserMixin
 from db import db
+from sqlalchemy.sql import func
 
-class Student(db.Model):
+class Student(UserMixin, db.Model):
     id = mapped_column(Integer, primary_key=True)
-    name = mapped_column(String(200), nullable=False, unique=True)
-    phone = mapped_column(String(20), nullable=False)
-    balance = mapped_column(Float, nullable=False, default=0)
+    username = mapped_column(String(200), nullable=False, unique=True)
+    firstName = mapped_column(String(200), nullable=False)
+    lastName = mapped_column(String(200), nullable=False)
 
-class Teacher(db.Model):
-    id = mapped_column(Integer, primary_key=True)
-    name = mapped_column(String(200), nullable=False, unique=True)
-    phone = mapped_column(String(20), nullable=False)
+    email = mapped_column(String(200), nullable=False, unique=True)
+    password = mapped_column(String(200), nullable=False)
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "firstName": self.firstName,
+            "lastname": self.lastName,
+            "email": self.email,
+            "password": self.password
+        }
