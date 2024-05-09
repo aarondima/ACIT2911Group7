@@ -1,15 +1,25 @@
-
-
 {% extends "layout.html" %}
- 
-{% block y %}
- 
-   <h1> Login </h1>
- 
-   <form action="/login" method="POST">
-      <input placeholder="Name" autocomplete="off" type="text" name="username">
+
+{% block title %}Login{% endblock %}
+{% block header1 %}Login Page{% endblock %}
+
+{% block y %} 
+   <!-- <form action="/login" method="POST">
+      <input placeholder="Username" autocomplete="off" type="text" name="username">
       <input placeholder="Password" autocomplete="off" type="password" name="password">
-      <input type="submit" name="Register">
-   </form>
- 
+      <input type="submit" name="Login">
+   </form> -->
+   <form  action="/login" method="POST">
+      <h2 align="center">Login</h3>
+      <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username"/>
+      </div>
+      <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" autocomplete="off" placeholder="Enter Password"/>
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Login</button>
+  </form>
 {% endblock %}

@@ -1,48 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Home{% endblock %}</title>
-</head>
-<body>
-    <h1>Hello</h1>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-    <a href="/logout">Logout</a>
-    <!-- {% if current_user.is_authenticated %}
-    <h1>You are logged in as {{ current_user.username}}</h1>
-    <a href="/logout">Logout</a>
-    {% else %}
-    <h1>You are not logged in</h1>
-    {% endif %} -->
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block header1 %}Home Page{% endblock %}
+ 
+{% block y %}
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbar"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="collapse navbar-collapse" id="navbar">
-            <div class="navbar-nav">
-                {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link" id="home" href="/">Home</a>
-                <a class="nav-item nav-link" id="courses" href="/courses">Courses</a>
-                <a class="nav-item nav-link" id="instructor" href="/instructor">Instructor</a>
-                <a class="nav-item nav-link" id="products" href="/products">Products</a>
-                <a class="nav-item nav-link" id="profile" href="/profile">Profile</a>
-                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-                {% else %}
-                <a class="nav-item nav-link" id="login" href="/login">Login</a>
-                <a class="nav-item nav-link" id="register" href="/login">Register</a>
-                {% endif %}
-                
-            </div>
-        </div>
-    </nav>
-</body>
-</html>
+{% endblock %}
