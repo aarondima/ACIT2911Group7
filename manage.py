@@ -1,4 +1,3 @@
-import random
 from db import db
 from FlaskLab import app
 from models import Student, Product, Course, Instructor
