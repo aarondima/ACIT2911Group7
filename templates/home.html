@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello</h1>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-    <a href="/logout">Logout</a>
-    {% if current_user.is_authenticated %}
-    <h1>You are logged in as {{ current_user.username}}</h1>
-    <a href="/logout">Logout</a>
-    {% else %}
-    <h1>You are not logged in</h1>
-    {% endif %}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+<div class="d-flex align-items-center justify-content-center text-center" style="background: url('https://wallpapercave.com/wp/wp7632955.jpg') no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 100vh;">
+    <div class="text-light" style="background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 15px; font-family: 'Roboto', sans-serif; font-style: italic;">
+        <h1 class="display-4">Welcome to your board, {{ name }}!</h1>
+        <p style="text-align: justify; line-height: 1.6; margin: 20px 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <button id="interactiveButton" class="btn btn-outline-light btn-lg mt-3">comming soon!!!</button>
+        
+    </div>
+</div>
+
+<script>
+    document.getElementById('interactiveButton').addEventListener('click', function() {
+        alert('Hello, {{ name }}! Welcome to your platform.');
+    });
+</script>
+{% endblock %}
