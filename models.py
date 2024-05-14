@@ -1,9 +1,9 @@
-<<<<<<< HEAD
 from sqlalchemy import Boolean, Float, Numeric, ForeignKey, Integer, String, func, DateTime
 from sqlalchemy.orm import mapped_column, relationship
 from datetime import datetime
 from db import db
 from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 
@@ -16,6 +16,11 @@ class Student(UserMixin, db.Model):
     balance = mapped_column(Numeric(10,2), nullable=False)
     enrollments = relationship('Enrollment', back_populates='student')
     
+    def __init__(self, email:str, password_plain_text: str):
+        self.email=email
+        self.password_hashed=generate_password_hash(password_plain_text)
+
+
 class Order(db.Model):
   id = mapped_column(Integer, primary_key=True)
   date = mapped_column(DateTime, default=datetime.now())
@@ -70,29 +75,3 @@ class ProductOrder(db.Model):
     product = relationship('Product', back_populates='productOrders')    
     
     
-=======
-from sqlalchemy import Boolean, Float, Numeric, ForeignKey, Integer, String, DateTime
-from sqlalchemy.orm import mapped_column, relationship
-from flask_login import UserMixin
-from db import db
-from sqlalchemy.sql import func
-
-class Student(UserMixin, db.Model):
-    id = mapped_column(Integer, primary_key=True)
-    username = mapped_column(String(200), nullable=False, unique=True)
-    firstName = mapped_column(String(200), nullable=False)
-    lastName = mapped_column(String(200), nullable=False)
-
-    email = mapped_column(String(200), nullable=False, unique=True)
-    password = mapped_column(String(200), nullable=False)
-
-    def to_json(self):
-        return {
-            "id": self.id,
-            "username": self.username,
-            "firstName": self.firstName,
-            "lastname": self.lastName,
-            "email": self.email,
-            "password": self.password
-        }
->>>>>>> adafe8204624f824e262bf8239a3c1ac1ddf309a
