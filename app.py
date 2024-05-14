@@ -9,7 +9,7 @@ import csv
 from flask_login import LoginManager
 from models import Student 
 
-
+from pathlib import Path 
 app = Flask(__name__)
 # This will make Flask use a 'sqlite' database with the filename provided
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///i_copy_pasted_this.db"
