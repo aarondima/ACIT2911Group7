@@ -1,56 +1,60 @@
 from db import db
-from app import app
-import csv
-from models import Student
+from FlaskLab import app
+from models import Student, Product, Course, Instructor
 from sqlalchemy.sql import functions as func
-import random
+import csv
+from werkzeug.security import generate_password_hash
 
-def create_all_tables():
-    with app.app_context():
-        db.create_all()
-def delete_all_tables():
-    with app.app_context():
-        db.drop_all()
-def load_all():
-    with app.app_context():
-        with open("data/students.csv", newline= '') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                student = Student(username=row['userName'], firstName=row['firstName'],lastName=row['lastName'],email=row['email'],password=row['password'])
-                db.session.add(student)
-        # with open("data/productsCat.csv", newline= '') as csvfile:
-        #     reader = csv.DictReader(csvfile)
-        #     for row in reader:
-        #         rand_qty = random.randint(0,1)
-        #         category = Category(name=row['category'])
-        #         db.session.add(category)
-        #         product = Product(name=row['name'], price=row['price'],category=category.name,available=rand_qty )
-        #         db.session.add(product)
+
+
+def load_students():
+    with  open('./data/students.csv') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            student = Student(name=row[0], phone=row[1], balance=float(row[2]),password=generate_password_hash("password", method='sha256'),email=row[3])
+            db.session.add(student)
+        db.session.commit()
+    
+def load_products():
+    with open('./data/products.csv') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            if row[3] == "NA":
+                product = Product(name=row[0], price=row[2],category=row[1], available=None)
+            else:
+                product = Product(name=row[0], price=row[2],category=row[1], available=row[3])
+            db.session.add(product)
+        db.session.commit()
+    
+def load_courses():
+    with open('./data/courses.csv') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            course = Course(name=row[0], duration=row[1], price=row[2], instructor_id=row[3])
+            db.session.add(course)
         db.session.commit()
 
-def random_db():
-    pass
-    # with app.app_context():
-    #     # Find a random customer
-    #     for _ in range(100):
-    #         cust_stmt = db.select(Customer).order_by(func.random()).limit(1)
-    #         customer = db.session.execute(cust_stmt).scalar()
-    #         order = Order(customer=customer)
-    #         db.session.add(order)
-    #         rand_prod_qty = random.randint(1,6)
-    #         for _ in range(rand_prod_qty):
-
-    #         # Find a random product
-    #             prod_stmt = db.select(Product).order_by(func.random()).limit(1)
-    #             product = db.session.execute(prod_stmt).scalar()
-    #             rand_qty = random.randint(10, 20)
-    #             # Add that product to the order
-    #             association_1 = ProductOrder(order=order, product=product, quantity=rand_qty)
-    #             db.session.add(association_1)
-            
-    #     db.session.commit()
+def load_instructors():
+    with open('./data/teachers.csv') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            instructor = Instructor(name=row[0], phone=row[1], email=row[2])
+            db.session.add(instructor)
+        db.session.commit()
+        
+def drop_all_tables():
+    db.drop_all()   
+    
+def create_all_tables():
+    db.create_all()
+    load_students()
+    load_products()
+    load_instructors()
+    load_courses()
+    
 if __name__ == "__main__":
-    delete_all_tables()
-    create_all_tables()
-    load_all()
-    random_db()
+    with app.app_context():
+        drop_all_tables()
+        create_all_tables()
+        
+        # append_random_data()
