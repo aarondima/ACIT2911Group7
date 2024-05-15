@@ -33,5 +33,4 @@ rich==13.7.1
 SQLAlchemy==2.0.28
 typing_extensions==4.8.0
 urllib3==2.1.0
-vboxapi==1.0
 Werkzeug==3.0.1
