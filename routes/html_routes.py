@@ -55,7 +55,7 @@ def signup():
     password = request.form["password"]
     if Student.query.filter_by(email=email).first():
         return redirect(url_for("html.register_page"))
-    student = Student(name=name, phone=phone, email=email, password=generate_password_hash(password, method='sha256'),balance=0.0)
+    student = Student(name=name, phone=phone, email=email, password=generate_password_hash(password, method='pbkdf2:sha256'),balance=0.0)
     db.session.add(student)
     db.session.commit()
     login_user(student, remember=True)
