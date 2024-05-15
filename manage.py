@@ -5,13 +5,11 @@ from sqlalchemy.sql import functions as func
 import csv
 from werkzeug.security import generate_password_hash
 
-
-
 def load_students():
     with  open('./data/students.csv') as f:
         reader = csv.reader(f)
         for row in reader:
-            student = Student(name=row[0], phone=row[1], balance=float(row[2]),password=generate_password_hash("password", method='sha256'),email=row[3])
+            student = Student(name=row[0], phone=row[1], balance=float(row[2]),password=generate_password_hash("password", method='pbkdf2:sha256'),email=row[3])
             db.session.add(student)
         db.session.commit()
     
