@@ -32,5 +32,5 @@ def load_user(user_id):
 
 app.register_blueprint(html_bp, url_prefix="/")
 
-if __name__ == "__main__":
-    app.run(debug=True, port=8888)
+# if __name__ == "__main__":
+#     app.run(debug=True, port=8888)
