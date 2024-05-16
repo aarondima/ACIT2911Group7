@@ -2,14 +2,14 @@
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user
-from ACIT2911Group7.models import Student
-from ACIT2911Group7.db import db
-from ACIT2911Group7.routes.html_routes import html_bp
+from models import Student
+from db import db
+from routes.html_routes import html_bp
 import csv
 from flask_login import LoginManager
-from ACIT2911Group7.models import Student 
-
+from models import Student 
 from pathlib import Path 
+
 app = Flask(__name__)
 # This will make Flask use a 'sqlite' database with the filename provided
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///i_copy_pasted_this.db"

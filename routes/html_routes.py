@@ -2,9 +2,9 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for, B
 from pathlib import Path
 from sqlalchemy import delete
 from datetime import datetime
-from ACIT2911Group7.db import db
+from db import db
 import csv
-from ACIT2911Group7.models import Student, Course, Instructor
+from models import Student, Course, Instructor
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from flask_login import login_required, current_user

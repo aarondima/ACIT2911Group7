@@ -2,7 +2,7 @@ from sqlalchemy import Boolean, Float, Numeric, ForeignKey, Integer, String, Dat
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from flask_login import UserMixin
-from ACIT2911Group7.db import db
+from db import db
 
 class Student(UserMixin, db.Model):
     id = Column(Integer, primary_key=True)
