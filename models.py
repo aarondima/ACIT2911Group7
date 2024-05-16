@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from flask_login import UserMixin
 from db import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Student(UserMixin, db.Model):
     id = Column(Integer, primary_key=True)
@@ -12,6 +13,9 @@ class Student(UserMixin, db.Model):
     password=Column(String, nullable=False)
     balance = Column(Numeric(10,2), nullable=False)
     enrollments = relationship('Enrollment', back_populates='student')
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
     
 class Order(db.Model):
   id = Column(Integer, primary_key=True)
