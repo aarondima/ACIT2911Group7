@@ -9,7 +9,7 @@ def load_students():
     with  open('./data/students.csv') as f:
         reader = csv.reader(f)
         for row in reader:
-            student = Student(name=row[0], phone=row[1], balance=float(row[2]),password=generate_password_hash("password", method='pbkdf2:sha256'),email=row[3])
+            student = Student(name=row[0], phone=row[1],email=row[3],password=generate_password_hash("password", method='pbkdf2:sha256'),balance=row[2], role="Student")
             db.session.add(student)
         db.session.commit()
     

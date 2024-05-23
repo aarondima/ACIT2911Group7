@@ -13,7 +13,14 @@ class Student(UserMixin, db.Model):
     password=Column(String, nullable=False)
     balance = Column(Numeric(10,2), nullable=False)
     enrollments = relationship('Enrollment', back_populates='student')
-
+    role = Column(String, nullable=False, default="Student")
+    def __init__(self, name: str, phone: str, email: str, password: str, balance: Numeric, role: str):
+        self.name = name
+        self.phone = phone
+        self.email = email
+        self.password = password
+        self.balance = balance
+        self.role = role
     def set_password(self, password):
         self.password = generate_password_hash(password)
     
