@@ -4,12 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user
 from models import Student
 from db import db
-from routes import html_bp
+from routes.html_routes import html_bp
 import csv
 from flask_login import LoginManager
 from models import Student 
-
 from pathlib import Path 
+
 app = Flask(__name__)
 # This will make Flask use a 'sqlite' database with the filename provided
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///i_copy_pasted_this.db"
@@ -34,3 +34,4 @@ app.register_blueprint(html_bp, url_prefix="/")
 
 if __name__ == "__main__":
     app.run(debug=True, port=8888)
+    

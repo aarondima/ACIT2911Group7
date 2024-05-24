@@ -1,1 +1,1 @@
-from .html_routes import html_bp
+from .routes.html_routes import html_bp
