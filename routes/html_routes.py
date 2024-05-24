@@ -95,20 +95,8 @@ def login():
 @login_required
 @admin_required
 def admin_resource():
-    return render_template("admin.html")
+    statement = db.select(Course).order_by(Course.id)
+    records = db.session.execute(statement)
+    courses = records.scalars().all()
+    return render_template("admin.html", courses=courses)
 
-@html_bp.route('/clear_session/<int:user_id>', methods=['GET'])
-
-@login_required
-def clear_session(user_id):
-    # Check if the user exists or perform any other validation
-    # Here, we'll simply clear the session if the user ID matches
-    # return f"{user_id}"
-    user = session.get('username')
-    return f"{user}"
-    if user_id == session.get('user_id'):
-        # session.clear()
-        # return redirect(url_for('index'))
-        return "Hello this is the user"
-    else:
-        return "User ID does not match. Unable to clear session."

@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello this is admin</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Courses</h1>
+    <table class="table table-striped">
+      <thread>
+        <th scope="col">#</th>
+        <th scope="col">Course Id</th>
+        <th scope="col">Course Name</th>
+      </thread>
+      <tbody>
+        {% for course in courses %}
+          <tr>
+            <th scope="row">{{loop.index0}}</th>
+            <td>{{course.id}}</td>
+            <td>{{course.name}}</td>
+
+          </tr>
+          {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+
+{% endblock %}
